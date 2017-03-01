@@ -1,0 +1,58 @@
+'use strict';
+
+/* Import node's http module: */
+var http = require('http');
+var url = require('url');
+var handleRequest = require('./request-handler.js');
+var utilities = require('./utilities.js');
+
+// Every server needs to listen on a port with a unique number. The
+// standard port for HTTP servers is port 80, but that port is
+// normally already claimed by another server and/or not accessible
+// so we'll use a standard testing port like 3000, other common development
+// ports are 8080 and 1337.
+var port = 3000;
+
+// For now, since you're running this server on your local machine,
+// we'll have it listen on the IP address 127.0.0.1, which is a
+// special address that always refers to localhost.
+var ip = '127.0.0.1';
+
+// We use node's http module to create a server.
+//
+// The function we pass to http.createServer will be used to handle all
+// incoming requests.
+//
+// After creating the server, we will tell it to listen on the given port and IP. */
+// http.createServer(request, response)
+
+var routes = {
+  '/classes/messages': handleRequest
+};
+
+var server = http.createServer(function (request, response) {
+
+  var parts = url.parse(request.url);
+  var route = routes[parts.pathname];
+
+  if (route) {
+    route(request, response);
+  } else {
+    utilities.sendResponse(response, 'Not Found', 404);
+  }
+}).listen(port, ip);
+console.log('Listening on http://' + ip + ':' + port);
+
+// To start this server, run:
+//
+//   node basic-server.js
+//
+// on the command line.
+//
+// To connect to the server, load http://127.0.0.1:3000 in your web
+// browser.
+//
+// server.listen() will continue running as long as there is the
+// possibility of serving more requests. To stop your server, hit
+// Ctrl-C on the command line.
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NlcnZlci9iYXNpYy1zZXJ2ZXIuanMiXSwibmFtZXMiOlsiaHR0cCIsInJlcXVpcmUiLCJ1cmwiLCJoYW5kbGVSZXF1ZXN0IiwidXRpbGl0aWVzIiwicG9ydCIsImlwIiwicm91dGVzIiwic2VydmVyIiwiY3JlYXRlU2VydmVyIiwicmVxdWVzdCIsInJlc3BvbnNlIiwicGFydHMiLCJwYXJzZSIsInJvdXRlIiwicGF0aG5hbWUiLCJzZW5kUmVzcG9uc2UiLCJsaXN0ZW4iLCJjb25zb2xlIiwibG9nIl0sIm1hcHBpbmdzIjoiOztBQUFBO0FBQ0EsSUFBSUEsT0FBT0MsUUFBUSxNQUFSLENBQVg7QUFDQSxJQUFJQyxNQUFNRCxRQUFRLEtBQVIsQ0FBVjtBQUNBLElBQUlFLGdCQUFnQkYsUUFBUSxzQkFBUixDQUFwQjtBQUNBLElBQUlHLFlBQVlILFFBQVEsZ0JBQVIsQ0FBaEI7O0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLElBQUlJLE9BQU8sSUFBWDs7QUFFQTtBQUNBO0FBQ0E7QUFDQSxJQUFJQyxLQUFLLFdBQVQ7O0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUEsSUFBSUMsU0FBUztBQUNYLHVCQUFxQko7QUFEVixDQUFiOztBQUlBLElBQUlLLFNBQVNSLEtBQUtTLFlBQUwsQ0FBa0IsVUFBU0MsT0FBVCxFQUFrQkMsUUFBbEIsRUFBNEI7O0FBRXpELE1BQUlDLFFBQVFWLElBQUlXLEtBQUosQ0FBVUgsUUFBUVIsR0FBbEIsQ0FBWjtBQUNBLE1BQUlZLFFBQVFQLE9BQU9LLE1BQU1HLFFBQWIsQ0FBWjs7QUFFQSxNQUFJRCxLQUFKLEVBQVc7QUFDVEEsVUFBTUosT0FBTixFQUFlQyxRQUFmO0FBQ0QsR0FGRCxNQUVPO0FBQ0xQLGNBQVVZLFlBQVYsQ0FBdUJMLFFBQXZCLEVBQWlDLFdBQWpDLEVBQThDLEdBQTlDO0FBQ0Q7QUFFRixDQVhZLEVBV1ZNLE1BWFUsQ0FXSFosSUFYRyxFQVdHQyxFQVhILENBQWI7QUFZQVksUUFBUUMsR0FBUixDQUFZLHlCQUF5QmIsRUFBekIsR0FBOEIsR0FBOUIsR0FBb0NELElBQWhEOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsImZpbGUiOiJiYXNpYy1zZXJ2ZXIuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBJbXBvcnQgbm9kZSdzIGh0dHAgbW9kdWxlOiAqL1xudmFyIGh0dHAgPSByZXF1aXJlKCdodHRwJyk7XG52YXIgdXJsID0gcmVxdWlyZSgndXJsJyk7XG52YXIgaGFuZGxlUmVxdWVzdCA9IHJlcXVpcmUoJy4vcmVxdWVzdC1oYW5kbGVyLmpzJyk7XG52YXIgdXRpbGl0aWVzID0gcmVxdWlyZSgnLi91dGlsaXRpZXMuanMnKTtcblxuXG4vLyBFdmVyeSBzZXJ2ZXIgbmVlZHMgdG8gbGlzdGVuIG9uIGEgcG9ydCB3aXRoIGEgdW5pcXVlIG51bWJlci4gVGhlXG4vLyBzdGFuZGFyZCBwb3J0IGZvciBIVFRQIHNlcnZlcnMgaXMgcG9ydCA4MCwgYnV0IHRoYXQgcG9ydCBpc1xuLy8gbm9ybWFsbHkgYWxyZWFkeSBjbGFpbWVkIGJ5IGFub3RoZXIgc2VydmVyIGFuZC9vciBub3QgYWNjZXNzaWJsZVxuLy8gc28gd2UnbGwgdXNlIGEgc3RhbmRhcmQgdGVzdGluZyBwb3J0IGxpa2UgMzAwMCwgb3RoZXIgY29tbW9uIGRldmVsb3BtZW50XG4vLyBwb3J0cyBhcmUgODA4MCBhbmQgMTMzNy5cbnZhciBwb3J0ID0gMzAwMDtcblxuLy8gRm9yIG5vdywgc2luY2UgeW91J3JlIHJ1bm5pbmcgdGhpcyBzZXJ2ZXIgb24geW91ciBsb2NhbCBtYWNoaW5lLFxuLy8gd2UnbGwgaGF2ZSBpdCBsaXN0ZW4gb24gdGhlIElQIGFkZHJlc3MgMTI3LjAuMC4xLCB3aGljaCBpcyBhXG4vLyBzcGVjaWFsIGFkZHJlc3MgdGhhdCBhbHdheXMgcmVmZXJzIHRvIGxvY2FsaG9zdC5cbnZhciBpcCA9ICcxMjcuMC4wLjEnO1xuXG5cbi8vIFdlIHVzZSBub2RlJ3MgaHR0cCBtb2R1bGUgdG8gY3JlYXRlIGEgc2VydmVyLlxuLy9cbi8vIFRoZSBmdW5jdGlvbiB3ZSBwYXNzIHRvIGh0dHAuY3JlYXRlU2VydmVyIHdpbGwgYmUgdXNlZCB0byBoYW5kbGUgYWxsXG4vLyBpbmNvbWluZyByZXF1ZXN0cy5cbi8vXG4vLyBBZnRlciBjcmVhdGluZyB0aGUgc2VydmVyLCB3ZSB3aWxsIHRlbGwgaXQgdG8gbGlzdGVuIG9uIHRoZSBnaXZlbiBwb3J0IGFuZCBJUC4gKi9cbi8vIGh0dHAuY3JlYXRlU2VydmVyKHJlcXVlc3QsIHJlc3BvbnNlKVxuXG52YXIgcm91dGVzID0ge1xuICAnL2NsYXNzZXMvbWVzc2FnZXMnOiBoYW5kbGVSZXF1ZXN0XG59O1xuXG52YXIgc2VydmVyID0gaHR0cC5jcmVhdGVTZXJ2ZXIoZnVuY3Rpb24ocmVxdWVzdCwgcmVzcG9uc2UpIHtcblxuICB2YXIgcGFydHMgPSB1cmwucGFyc2UocmVxdWVzdC51cmwpO1xuICB2YXIgcm91dGUgPSByb3V0ZXNbcGFydHMucGF0aG5hbWVdO1xuXG4gIGlmIChyb3V0ZSkge1xuICAgIHJvdXRlKHJlcXVlc3QsIHJlc3BvbnNlKTtcbiAgfSBlbHNlIHtcbiAgICB1dGlsaXRpZXMuc2VuZFJlc3BvbnNlKHJlc3BvbnNlLCAnTm90IEZvdW5kJywgNDA0KTtcbiAgfVxuXG59KS5saXN0ZW4ocG9ydCwgaXApO1xuY29uc29sZS5sb2coJ0xpc3RlbmluZyBvbiBodHRwOi8vJyArIGlwICsgJzonICsgcG9ydCk7XG5cbi8vIFRvIHN0YXJ0IHRoaXMgc2VydmVyLCBydW46XG4vL1xuLy8gICBub2RlIGJhc2ljLXNlcnZlci5qc1xuLy9cbi8vIG9uIHRoZSBjb21tYW5kIGxpbmUuXG4vL1xuLy8gVG8gY29ubmVjdCB0byB0aGUgc2VydmVyLCBsb2FkIGh0dHA6Ly8xMjcuMC4wLjE6MzAwMCBpbiB5b3VyIHdlYlxuLy8gYnJvd3Nlci5cbi8vXG4vLyBzZXJ2ZXIubGlzdGVuKCkgd2lsbCBjb250aW51ZSBydW5uaW5nIGFzIGxvbmcgYXMgdGhlcmUgaXMgdGhlXG4vLyBwb3NzaWJpbGl0eSBvZiBzZXJ2aW5nIG1vcmUgcmVxdWVzdHMuIFRvIHN0b3AgeW91ciBzZXJ2ZXIsIGhpdFxuLy8gQ3RybC1DIG9uIHRoZSBjb21tYW5kIGxpbmUuXG5cbiJdfQ==

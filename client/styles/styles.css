@@ -1,0 +1,152 @@
+body {
+    background: rgb(245, 248, 250);
+    text-align: center;
+    padding: 50px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#main {
+    background: rgb(232, 245, 253);
+    border-radius: 5px 5px 0 0;
+}
+
+#main, #chats {
+    width: 500px;
+    margin: auto;
+    text-align: left;
+    border: solid #ddd;
+    border-width: 1px 1px 0 1px;
+    padding-bottom: 5px;
+}
+
+#main h1 {
+    margin-top: 0;
+    font-size: 35px;
+    margin-bottom: 5px;
+    padding: 5px;
+    color: #555;
+}
+
+#main h1 span {
+    font-style:italic;
+}
+
+#main ul {
+    padding-left: 20px;
+}
+
+#main .error {
+    border: 1px solid red;
+    background: #FDEFF0;
+    padding: 20px;
+}
+
+#main .success {
+    margin-top: 25px;
+}
+
+#main .success code {
+    font-size: 12px;
+    color: green;
+    line-height: 13px;
+}
+
+form {
+    padding: 20px;
+    padding-left: 0;
+}
+
+form input[type=text] {
+    margin-right: 10px;
+    width: 70%;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.chat {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+
+.chat .username {
+    font-weight: 800;
+}
+
+.chat:hover {
+    background-color: #ddd;
+}
+
+.spinner {
+    float: right;
+    height: 46px;
+    margin-bottom: 5px;
+}
+
+.spinner img {
+    padding: 10px;
+}
+
+.individual-message {
+    position: relative;
+    border: solid rgba(225, 232, 237, 0.5);
+    border-width: 1px 0;
+    padding: 9px 12px;
+    background-color: white;
+    min-height: 51px;
+    cursor: pointer;
+}
+
+.username, .timestamp {
+    color: #8899A6;
+}
+
+#new-message {
+    padding-top: 5px;
+    word-wrap: break-word;
+    min-height: 64px;
+    overflow: hidden;
+    padding: 8px;
+    margin: 0 0 0 8px;
+    text-shadow: none;
+    vertical-align: top;
+    display: block;
+    position: relative;
+    font-size: 12px;
+    line-height: 18px;
+    width: 100%;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    border-radius: 5px;
+    border: 1px solid rgba(225, 232, 237, 0.5);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+}
+
+.message-form {
+    display: inline-block;
+    width: 100%;
+}
+
+.content-title {
+    float: left;
+    margin-left: 15px;
+}
+
+.dropdown {
+    float: right;
+    margin: 10px;
+}
+
+.btn-blue {
+    background: rgb(27, 152, 228);
+    color: #fff;
+}
+
+#create-room {
+    float: right;
+    margin: 10px;
+}
+
+.friend {
+    font-weight: bold;
+}

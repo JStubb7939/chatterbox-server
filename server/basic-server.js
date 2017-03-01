@@ -1,5 +1,8 @@
 /* Import node's http module: */
 var http = require('http');
+var url = require('url');
+var handleRequest = require('./request-handler.js');
+var utilities = require('./utilities.js');
 
 
 // Every server needs to listen on a port with a unique number. The
@@ -15,16 +18,31 @@ var port = 3000;
 var ip = '127.0.0.1';
 
 
-
 // We use node's http module to create a server.
 //
 // The function we pass to http.createServer will be used to handle all
 // incoming requests.
 //
 // After creating the server, we will tell it to listen on the given port and IP. */
-var server = http.createServer(handleRequest);
+// http.createServer(request, response)
+
+var routes = {
+  '/classes/messages': handleRequest
+};
+
+var server = http.createServer(function(request, response) {
+
+  var parts = url.parse(request.url);
+  var route = routes[parts.pathname];
+
+  if (route) {
+    route(request, response);
+  } else {
+    utilities.sendResponse(response, 'Not Found', 404);
+  }
+
+}).listen(port, ip);
 console.log('Listening on http://' + ip + ':' + port);
-server.listen(port, ip);
 
 // To start this server, run:
 //
